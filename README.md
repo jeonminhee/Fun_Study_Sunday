@@ -1,1 +1,1 @@
-# Fun_Study_Sunday
+# Fun Study Sunday
