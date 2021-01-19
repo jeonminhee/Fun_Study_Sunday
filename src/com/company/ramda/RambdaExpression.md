@@ -62,3 +62,5 @@ int max(int a, int b) {
 (int a, int b) -> { return a > b ? a : bl; } // OK  
 (int a, int b) -> return a > b ? a : bl // 에러  
 ```
+
+출처 : 남궁성. Java의 정석.도우출판:2016
