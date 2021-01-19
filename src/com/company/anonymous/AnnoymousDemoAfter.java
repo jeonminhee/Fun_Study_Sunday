@@ -2,7 +2,6 @@ package com.company.anonymous;
 
 interface Age2 {
     int age = 28;
-
     void getAge();
 }
 
