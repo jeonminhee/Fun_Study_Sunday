@@ -60,7 +60,9 @@ System.out.println(result); // minhee 출력
 ```
 >> 사용하는 방법
 ```java
-String name3 = name.orElseGet(String::new); // () -> new String()과 동일
+String name3 = name.orElseGet(String::new); // () -> new String()과 동일, 메서드 참조
 String name4 = name.orElseThrow(NullPointException::new); // Null이면 예외발생
-/* 메서드참조 파일 추가 */
 ```
+> filter(), map(), flatMap()의 사용
+* Optional객체에서도 filter(), map(), flatMap()을 사용할 수 있다.
+* 스트림 내용 추가하기... 
