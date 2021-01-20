@@ -12,7 +12,6 @@ Function<T,R> 함수형 인터페이스
 - T를 인자로 받고 R을 리턴한다.
 */
 ```
-
 ```java
 // 위의 람다식을 메서드로 표현
 Integer wrapper(String s) {
@@ -38,4 +37,35 @@ BiFunction<T, U, R> 함수형 인터페이스
 - 앞의 두개의 타입(T, U)으로 인자를 받고 3번째 타입(R)으로 리턴한다.
 - apply라는 메서드가 존재
 */
+```
+```java
+MyClass obj = new MyClass();
+// 메서드 참조로 변경 전
+Function<String, Boolean> f = (x) -> obj.equals(x);
+// 메서드 참조로 변경 후
+Function<String, Boolean> f = obj::equals;
+/*
+이미 생성된 객체의 메서드를 람다식에 사용한 경우에는 클래스 이름 대신 그 객체의 참조변수를 적어줘야햔다.
+*/
+```
+> 생성자 메서드 참조
+* 생성자를 호출하는 람다식도 메서드 참조가 가능하다.
+```java
+// 생성자 메서드 참조로 변경 전
+Supplier<MyClass> s = () -> new MyClass();
+// 생성자 메서드 참조로 변경 후
+Supplier<MyClass> s = MyClass::new;
+```
+* 매개변수가 있는 생성자라면, 개수에 따라 알맞는 함수형 인터페이스를 사용한다.
+```java
+Function<Integer, MyClass> f = (i) -> new MyClass(i); // 람다식
+Function<Integer, MyClass> f = MyClass::new; // 메서드 참조
+
+BiFunction<Integer, String, MyClass> bf = (i, s) -> new MyClass(i, s); // 람다식
+BiFunction<Integer, String, MyClass> bf = MyClass::new; // 메서드 참조
+```
+* 배열도 가능하다.
+```java
+Function<Integer, int[]> f = x -> new Int[x]; // 람다식
+Function<Integer, int[]> f = int[]::new; // 메서드 참조
 ```
