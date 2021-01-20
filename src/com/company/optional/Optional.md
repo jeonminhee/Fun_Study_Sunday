@@ -1,6 +1,6 @@
 # Optional<T>와 OptionalInt
 
-> Optional<TL> 클래스
+> Optional<T> 클래스
 - 지네릭 클래스
 - 'T타입의 객체'를 감싸는 래퍼 클래스
 - 모든 타입의 참조변수를 담을 수 있다.
@@ -35,8 +35,8 @@ tip) Optional<T>타입의 참조변수를 기본값으로 초기화할때는 emp
 ***
 > Optional 객체의 값 가져오기, get()
 * Optional 객체의 저장된 값을 가져올 때는 get()을 사용한다.
-    - null인 경우 : NoSuchElementException 발생
-    - **orElse()**로 대체 값을 지정
+  - null인 경우 : NoSuchElementException 발생
+  - **orElse()**로 대체 값을 지정
 ```java
 Optional<String> name = Optional.of("minhee");
 String name1 = name.get(); // null이면 예외 발생
@@ -62,4 +62,5 @@ System.out.println(result); // minhee 출력
 ```java
 String name3 = name.orElseGet(String::new); // () -> new String()과 동일
 String name4 = name.orElseThrow(NullPointException::new); // Null이면 예외발생
+/* 메서드참조 파일 추가 */
 ```
