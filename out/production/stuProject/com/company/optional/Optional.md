@@ -68,4 +68,3 @@ String name4 = name.orElseThrow(NullPointException::new); // Null이면 예외�
 ```
 > filter(), map(), flatMap()의 사용
 * Optional객체에서도 filter(), map(), flatMap()을 사용할 수 있다.
-* 스트림 내용 추가하기... 
