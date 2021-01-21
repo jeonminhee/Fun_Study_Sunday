@@ -12,7 +12,7 @@ public class AnnoymousDemoAfter {
          */
         int age = 20;
         Age2 a2 = () -> System.out.println("Age is " + age);
-        a2.getAge();
+        a2.getAge(); 
 
         /**
          * 익명클래스로 변환
