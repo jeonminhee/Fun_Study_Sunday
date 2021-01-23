@@ -67,4 +67,32 @@ String name3 = name.orElseGet(String::new); // () -> new String()과 동일, 메
 String name4 = name.orElseThrow(NullPointException::new); // Null이면 예외발생
 ```
 > filter(), map(), flatMap()의 사용
-* Optional객체에서도 filter(), map(), flatMap()을 사용할 수 있다. ... 추가
+* Optional객체에서도 filter(), map(), flatMap()을 사용할 수 있다.
+* 예제 참조
+
+> 객체의 참 / 거짓 반환, isPresent()
+* isPresent()는 Optional객체의 값이 null이면 false를 반환, null이 아니면 true를 반환한다.
+```java
+if(str != null) {
+	System.out.println(str);
+}
+// 위의 조건문을 isPresent()를 사용하여 변경
+Optional.ofNullable(str).ifPresent(System.out::println);
+// 참조변수 str이 null이 아닐때만 값을 출력하고 null이면 아무일도 일어나지 않는다.
+```
+* isPresent(Consumer<T> block)은 연산이 끝나고 값이 비어있지 않으면 주어진 람다식을 실행하고, 없으면 아무 일도 하지 않는다.
+```java
+Optional.of("abcd").ifPresent((value)  ->  { 
+ // 주어진 람다식 실행
+});  
+Optional.ofNullable(null).ifPresent((value)  ->  {
+  // 아무것도 하지 않음 
+});
+/*
+Consumer<T> 함수형 인터페이스
+: 추상메서드 void accept(T t)
+: 단지 매개값을 소비하는 역할만 하며, 소비한다는 말은 사용만하고 리턴값이 없다는 뜻
+: 객체를 T를 받아 소비
+*/
+```
+
