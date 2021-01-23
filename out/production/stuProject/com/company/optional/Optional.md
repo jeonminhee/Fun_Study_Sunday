@@ -67,4 +67,4 @@ String name3 = name.orElseGet(String::new); // () -> new String()과 동일, 메
 String name4 = name.orElseThrow(NullPointException::new); // Null이면 예외발생
 ```
 > filter(), map(), flatMap()의 사용
-* Optional객체에서도 filter(), map(), flatMap()을 사용할 수 있다.
+* Optional객체에서도 filter(), map(), flatMap()을 사용할 수 있다. ... 추가
