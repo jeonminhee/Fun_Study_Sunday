@@ -69,3 +69,5 @@ BiFunction<Integer, String, MyClass> bf = MyClass::new; // 메서드 참조
 Function<Integer, int[]> f = x -> new Int[x]; // 람다식
 Function<Integer, int[]> f = int[]::new; // 메서드 참조
 ```
+
+출처 : 남궁성. Java의 정석.도우출판:2016

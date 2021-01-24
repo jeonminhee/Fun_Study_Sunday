@@ -19,8 +19,8 @@ public final class Optional<T>{
 :: if문 없이도 NullPointerException이 발생하지 않는 '보다 간결하고 안전한 코드'를 작성 가능
 
 ***
-> Optional 객체 생성하기, of() ofNllable
-- Optional 객체를 생성할 때는 of() 또는 ofNullable을 사용한다.
+> Optional 객체 생성하기, of() ofNullable()
+- Optional 객체를 생성할 때는 of() 또는 ofNullable()을 사용한다.
 ```java
 String name = "minhee";
 Optional<String> optValue = Optional.of(name);
@@ -32,7 +32,7 @@ Optional<String> optValue = Optional.of(new String("minhee"));
 :: of()는 매개변수의 값이 null이면 NullPointerException을 발생시킨다.
 ```java
 Optional<String> name = Optional.of(null); // NullPointerException 발생
-Optional<String> name = Optional.ofNullable(null); // OK
+Optional<String> name = Optional.ofNullable(null); // OK, 빈 Optional 객체 반환
 ```
 tip) Optional<T>타입의 참조변수를 기본값으로 초기화할때는 empty()를 사용하는 것이 바람직하다.
 ***
@@ -58,7 +58,7 @@ Supplier<T> 함수형 인터페이스
 : JDK1.8에서 기본으로 제공하는 함수형 인터페이스
 : 인자는 받지않으며, 반환값만 존재한다.
 Supplier<String> name = () -> "minhee";  
-String result = s.get();
+String result = name.get();
 System.out.println(result); // minhee 출력
 */
 ```
