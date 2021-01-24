@@ -1,1 +1,0 @@
-# Fun Study Sunday
