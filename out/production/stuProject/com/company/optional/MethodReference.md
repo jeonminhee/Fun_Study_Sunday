@@ -45,7 +45,7 @@ Function<String, Boolean> f = (x) -> obj.equals(x);
 // 메서드 참조로 변경 후
 Function<String, Boolean> f = obj::equals;
 /*
-이미 생성된 객체의 메서드를 람다식에 사용한 경우에는 클래스 이름 대신 그 객체의 참조변수를 적어줘야햔다.
+이미 생성된 객체의 메서드를 람다식에 사용한 경우에는 클래스 이름 대신 그 객체의 참조변수를 적어줘야한다.
 */
 ```
 > 생성자 메서드 참조
@@ -69,3 +69,5 @@ BiFunction<Integer, String, MyClass> bf = MyClass::new; // 메서드 참조
 Function<Integer, int[]> f = x -> new Int[x]; // 람다식
 Function<Integer, int[]> f = int[]::new; // 메서드 참조
 ```
+
+출처 : 남궁성. Java의 정석.도우출판:2016

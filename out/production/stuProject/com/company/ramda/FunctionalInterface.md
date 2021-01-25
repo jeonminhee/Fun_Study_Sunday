@@ -39,3 +39,5 @@ Arrays.sort(), Collections.sort() 메서드는 두 번째 인자로 Comparator i
 List<String> list = Arrays.asList("abc", "aaa", "bbb", "ddd", "aaa");
 Collections.sort(list, (s1, s2) -> s2.compareTo(s1));
 ```
+
+출처 : 남궁성. Java의 정석.도우출판:2016

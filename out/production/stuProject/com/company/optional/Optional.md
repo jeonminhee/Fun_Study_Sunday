@@ -1,7 +1,7 @@
-# Optional<T>와 OptionalInt
+# Optional\<T>와 OptionalInt
 
-> Optional<T> 클래스
-- 지네릭 클래스
+> Optional\<T> 클래스
+- 제네릭 클래스
 - 'T타입의 객체'를 감싸는 래퍼 클래스
 - 모든 타입의 참조변수를 담을 수 있다.
 - java.util.Optional, JDK1.8부터 새로 추가되었다.
@@ -19,7 +19,7 @@ public final class Optional<T>{
 :: if문 없이도 NullPointerException이 발생하지 않는 '보다 간결하고 안전한 코드'를 작성 가능
 
 ***
-> Optional 객체 생성하기, of() ofNullable()
+> Optional 객체 생성하기, of() /  ofNullable()
 - Optional 객체를 생성할 때는 of() 또는 ofNullable()을 사용한다.
 ```java
 String name = "minhee";
@@ -78,11 +78,15 @@ String name4 = name.orElseThrow(NullPointException::new); // Null이면 예외�
 if(str != null) {
 	System.out.println(str);
 }
-// 위의 조건문을 isPresent()를 사용하여 변경
+// 1. 위의 조건문을 isPresent()를 사용하여 변경
+if(Optional.ofNullable(str).isPresent()) {
+  System.out.println(str);
+}
+// 2. 위의 조건문을 ifPresent()를 사용하여 변경
 Optional.ofNullable(str).ifPresent(System.out::println);
 // 참조변수 str이 null이 아닐때만 값을 출력하고 null이면 아무일도 일어나지 않는다.
 ```
-* ifPresent(Consumer<T> block)은 연산이 끝나고 값이 비어있지 않으면 주어진 람다식을 실행하고, 없으면 아무 일도 하지 않는다.
+* ifPresent(Consumer\<T> block)은 연산이 끝나고 값이 비어있지 않으면 주어진 람다식을 실행하고, 없으면 아무 일도 하지 않는다.
 ```java
 Optional.of("abcd").ifPresent((value)  ->  { 
  // 주어진 람다식 실행
@@ -133,3 +137,5 @@ Optional<String> opt2 = Optional.empty();
 
 System.out.println(opt.equals(opt2)); // true
 ```
+
+출처 : 남궁성. Java의 정석.도우출판:2016
