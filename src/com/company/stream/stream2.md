@@ -74,13 +74,115 @@ IntStream Arrays.stream(Int[] array, int startInclusive, int endExclusive)
 ```java
 IntStream       InStream.range(int begin, int end);
 IntStream       InStream.rangeClosed(int begin, int end);
+// range()의 경우 end가 범위에 포함되지 않고, rangeClosed()는 포함된다.
+IntStream       InStream.range(1, 5); // 1,2,3,4
+IntStream       InStream.rangeClosed(1, 5); // 1,2,3,4,5
 ```
 > 임의의 수
+#### 지정 타입의 난수들로 이루어진 스트림을 반환하는 Random클래스의 메서드들
+```java
+IntStream     ints()
+LongStream    longs()
+DoubleStream  doubles()
+```
+* 위의 메서드들이 반환하는 스트림은 크기가 정해지지 않은 '무한 스트림'이다.
+    * limit() 메서드를 사용하여 스트림의 크기를 제한해주어야한다.
+```java
+IntStream       intStream = new Random.ints(); // 무한스트림
+IntStream.limit(5).forEach(System.out::println); // 5개의 요소만 출력한다.
+```
+* 아래의 메서드들은 매개변수로 스트림의 크기를 지정한다.
+    * limit() 메서드를 사용하지 않아도 된다.
+```java
+IntStream     ints(long streamSize)
+LongStream    longs(long streamSize)
+DoubleStream  doubles(long streamSize)
 
+IntStream intStream = new Random.ints(5); // 크기가 5인 난수 스트림을 반환
+```
+* 지정된 범위의 난수를 발생시키는 스트림 메서드는 다음과 같다.
+    * end는 범위에 포함되지 않는다.
+```java
+IntStream     ints(int begin, int end)
+LongStream    longs(int begin, int end)
+DoubleStream  doubles(int begin, int end)
+
+IntStream     ints(long streamSize, int begin, int end)
+LongStream    longs(long streamSize, int begin, int end)
+DoubleStream  doubles(long streamSize, int begin, int end)
+```
+* Stream02.java 파일 참조
 > 람다식
+#### 람다식을 매개변수로 받는 Stream 클래스의 iterate(), generate()
+* 무한 스트림을 생성한다.
+```java
+static <T> Stream<T> iterate(T seed, UnaryOperator<T> f)
+static <T> Stream<T> generate(Supplier<T> s)
+/*
+Supplier<T> 함수형 인터페이스
+: JDK1.8에서 기본으로 제공하는 함수형 인터페이스
+: 인자는 받지않으며, 반환값만 존재한다.
+Supplier<String> name = () -> "minhee";  
+String result = name.get();
+System.out.println(result); // minhee 출력
+*/
+/*
+UnaryOperator<T> 함수형 인터페이스
+: Function<T,R> 에서 확장한 람다식
+: <T>형태의 입력값을 받아 <T>형태의 출력값을 리턴한다.
+UnaryOperator<String> uo = x -> x.toUpperCase();
+System.out.println("UnaryOperator test ="+ uo.apply("hello")); -> HELLO 출력
+*/
+```
+* ierate() : seed로 지정된 값부터 시작해서 람다식 f에 의해 계산된 결과를 다시 seed값으로 해서 계산을 반복한다.
+```java
+Stream<Integer> evenStream = Stream.iterator(0, n->n+2); // 0, 2, 4, 6 ... 
+```
+| n -> n + 2 |
+|:------|---:|
+| 0 -> 0 + 2 |
+| 2 -> 2 + 2 |
+| 4 -> 4 + 2 |
 
+* generate() : iterate()처럼 람다식에 의해 계산되는 값을 요소로 하는 무한스트림을 생성하지만, 이전 결과를 이용하지 않는다.
+```java
+Stream<Double> randomStream = Stream.generate(Math::random);
+Stream<Integer> oneStream   = Stream.generate(() -> 1);
+```
+generate()에 정의된 매개변수의 타입은 Supplier이므로 매개변수가 없는 람다식만 허용된다.
+
+주의! iterate()와 generate()로 생성된 스트림은 기본형 스트림 타입의 참조변수로 다룰 수 없다.
+```java
+IntStream evenStream = Stream.iterator(0, n->n+2); // 에러
+DoubleStream randomStream = Stream.generate(Math::random); // 에러
+``` 
 > 파일
-
+#### 지정된 디렉토리에 있는 파일의 목록을 스트림으로 반환하는 list()
+```java
+// Path는 하나의 파일 또는 경로를 의미한다.
+Stream<Path> Files.list(Path dir)
+```
+#### 파일의 한 행을 요소로 하는 스트림을 생성하는 메서드 lines()
+```java
+Stream<String> Files.lines(Path path)
+Stream<String> Files.lines(Path path, Charset cs)
+Stream<String> lines() // BufferedReader 클래스의 메서드
+```
 > 빈 스트림
-
+#### 요소가 없는, 비어있는 스트림을 생성하는 empty()
+* 스트림에서 연산을 수행한 결과가 하나도 없을 때, null보다 빈 스트림을 반환하는 것을 권장한다.
+```java
+Stream emptyStream = Stream.empty();
+long count = emptyStream.count(); // 0
+```
 > 두 스트림의 연결
+#### 두 스트림을 하나로 연결하는 concat()
+* 연결하려는 두 스트림의 요소는 같은 타입이여야한다.
+```java
+String[] str1 = {"123", "456"};
+String[] str2 = {"abc", "def"};
+
+Stream<String> strs1 = Stream.of(str1);
+Stream<String> strs2 = Stream.of(str2);
+Stream<String> strs3 = Stream.concat(strs1, strs2); // 두 스트림을 하나로 연결
+```
