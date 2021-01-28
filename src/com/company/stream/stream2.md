@@ -237,8 +237,33 @@ strStream.sorted().forEach(System.out::println); // CC aaa b cc dd
 */
 ```
 * Stream03.java 파일 참조
+* Stream04.java 파일 참조
 > 변환
+#### 원하는 필드만 뽑아내거나 특정형태로 변환시켜주는 map()
+* 매개변수로 T타입을 R타입으로 변환해서 반환하는 함수를 지정해야한다.
+```java
+Stream<R> map(Function<? super T,? extends R> mapper)
+```
+```java
+// File의 스트림에서 파일의 이름만 출력하는 예제
+Stream<File> fileStream = Stream.of(new File("Ex1.java"), new File("Ex1"),
+                                    new File("Ex1.bak"), new File("Ex2.java"), new File("Ex1.txt"));
 
+// map()으로 Stream<File>을 Stream<String>으로 변환
+Stream<String> filenameStream = fileStream.map(File::getName);
+filenameStream.forEach(System.out::println); // 스트림의 모든 파일이름을 출력
+```
+* map()도 filter()처럼 하나의 스트림에 여러번 적용 가능하다.
+```java
+// File의 스트림에서 파일의 확장자만을 뽑은 다음 중복을 제거해서 출력한다.
+fileStream.map(File::getName) // Stream<File> -> Stream<String>
+    .filter(s -> s.indexOf('.' != -1) // 확장자가 없는 것은 제외
+    .peek(s -> System.out.printf("filename = %s%n", s)) // 파일명을 출력한다.
+    .map(s -> s.substring(s.indexOf('.')+1)) // 확장자만 추출
+    .peek(s -> System.out.printf("extension = %s%n", s)) // 확장자를 출력한다.
+    .forEach(System.out::println);
+```
+* Stream05.java 파일 참조
 > mapToInt(), mapToLong(), mapToDouble()
 
 > flatMap()
