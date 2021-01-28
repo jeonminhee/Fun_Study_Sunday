@@ -186,3 +186,59 @@ Stream<String> strs1 = Stream.of(str1);
 Stream<String> strs2 = Stream.of(str2);
 Stream<String> strs3 = Stream.concat(strs1, strs2); // 두 스트림을 하나로 연결
 ```
+## 스트림의 중간연산
+> 스트림 자르기
+#### 스트림의 일부를 잘라내는 skip(), limit()
+* skip(n)은 처음 n개의 요소를 건너뛰고, limit(n)는 스트림의 요소를 n개로 제한한다.
+```java
+Stream<T> skip(long n)
+Stream<T> limit(long maxSize)
+```
+```java
+IntStream intStream = IntStream.rangeClosed(1, 10); // 1~10의 요소를 가진 스트림
+intStream.skip(3).limit(5).forEach(System.out::println); // 45678 출력
+```
+> 스트림 요소 걸러내기
+#### 중복 요소를 제거하는 distinct(), 조건(Predicate)에 맞지않는 요소를 걸러내는 filter()
+```java
+Stream<T> filter(Predicate<? super T> predicate)
+String<T> distinct()
+```
+* distinct()의 사용방법
+```java
+IntStream intStream = IntStream.of(1,2,2,3,3,4,5,5,6);
+intStream.distinct().forEach(System.out::println); // 123456
+```
+* filter()는 매개변수로 Predicate를 필요로하는데, 연산결과가 boolean인 람다식을 사용해도 된다.
+```java
+IntStream intStrean = IntStream.rangeClosed(1, 10); // 1~10
+intStream.filter(i -> i % 2 == 0).forEach(System.out::println); // 2 4 6 8 10
+```
+* 필요하다면, filter()를 다른 조건으로 여러번 사용이 가능하다.
+```java
+// 아래의 두 문장은 동일한 결과를 얻는다.
+intStream.filter(i -> i%2 != 0 && i%3 != 0).forEach(Systsem.out::println); //157
+intStream.filter(i -> i%2 != 0).filter(i -> i%3 != 0).forEach(Systsem.out::println); //157
+```
+> 정렬
+#### 스트림 요소를 정리하는 sorted()
+```java
+Stream<T> sorted()
+Stream<R> sorted(Comparator<? super T> comparator)
+```
+* 지정된 Comparator로 스트림을 정렬한다.
+    * Comparator 대신 int 값을 반환하는 람다식을 사용하는 것도 가능하다.
+* Comparator를 지정하지 않으면 기본 정렬 기준(Comparable)으로 정렬한다.
+```java
+Stream<String> strStream = Stream.of("dd", "aaa", "CC", "cc", "b");
+strStream.sorted().forEach(System.out::println); // CC aaa b cc dd
+/*
+문자열 스트림, String에 정의된 기본정렬(사전순)으로 정렬해서 출력한다.
+*/
+```
+* Stream03.java 파일 참조
+> 변환
+
+> mapToInt(), mapToLong(), mapToDouble()
+
+> flatMap()

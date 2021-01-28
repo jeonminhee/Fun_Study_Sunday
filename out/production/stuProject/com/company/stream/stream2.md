@@ -157,7 +157,32 @@ IntStream evenStream = Stream.iterator(0, n->n+2); // 에러
 DoubleStream randomStream = Stream.generate(Math::random); // 에러
 ``` 
 > 파일
-
+#### 지정된 디렉토리에 있는 파일의 목록을 스트림으로 반환하는 list()
+```java
+// Path는 하나의 파일 또는 경로를 의미한다.
+Stream<Path> Files.list(Path dir)
+```
+#### 파일의 한 행을 요소로 하는 스트림을 생성하는 메서드 lines()
+```java
+Stream<String> Files.lines(Path path)
+Stream<String> Files.lines(Path path, Charset cs)
+Stream<String> lines() // BufferedReader 클래스의 메서드
+```
 > 빈 스트림
-
+#### 요소가 없는, 비어있는 스트림을 생성하는 empty()
+* 스트림에서 연산을 수행한 결과가 하나도 없을 때, null보다 빈 스트림을 반환하는 것을 권장한다.
+```java
+Stream emptyStream = Stream.empty();
+long count = emptyStream.count(); // 0
+```
 > 두 스트림의 연결
+#### 두 스트림을 하나로 연결하는 concat()
+* 연결하려는 두 스트림의 요소는 같은 타입이여야한다.
+```java
+String[] str1 = {"123", "456"};
+String[] str2 = {"abc", "def"};
+
+Stream<String> strs1 = Stream.of(str1);
+Stream<String> strs2 = Stream.of(str2);
+Stream<String> strs3 = Stream.concat(strs1, strs2); // 두 스트림을 하나로 연결
+```
