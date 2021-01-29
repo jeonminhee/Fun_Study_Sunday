@@ -17,7 +17,7 @@ abstract class CondimentDecorator extends Beverage {
 class Americano extends Beverage {
 
     public Americano() {
-        super();
+//        super();
         name = "아메리카노";
     }
 
@@ -45,7 +45,6 @@ class CaffeLatte extends Beverage {
 class Cream extends CondimentDecorator {
 
     Beverage beverage;
-
 
     public Cream(Beverage beverage) {
         super();
