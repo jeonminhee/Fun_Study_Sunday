@@ -50,6 +50,7 @@ List로부터 스트림을 생성하는 코드는 다음과 같다.
 List<Integer> list = Arrays.asList(1,2,3,4,5); // 가변인자
 Stream<Integer> intStream = list.stream(); //  list를 소스로 하는 컬렉션 생성
 ```
+***
 > 배열
 #### 배열을 소스로 스트림을 생성하는 메서드는 Stream과 Arrays에 static 메서드로 정의되어있다.
 
@@ -68,6 +69,7 @@ IntStream Arrays.stream(Int[])
 IntStream Arrays.stream(Int[] array, int startInclusive, int endExclusive)
 /* long과 double 타입도 위와 같다. */
 ```
+***
 > 특정 범위의 정수
 #### 지정된 범위의 연속된 정수를 반환하는 IntStream, LongStream의 메서드
 * range()와 rangeClosed()
@@ -78,6 +80,7 @@ IntStream       InStream.rangeClosed(int begin, int end);
 IntStream       InStream.range(1, 5); // 1,2,3,4
 IntStream       InStream.rangeClosed(1, 5); // 1,2,3,4,5
 ```
+***
 > 임의의 수
 #### 지정 타입의 난수들로 이루어진 스트림을 반환하는 Random클래스의 메서드들
 ```java
@@ -112,6 +115,7 @@ LongStream    longs(long streamSize, int begin, int end)
 DoubleStream  doubles(long streamSize, int begin, int end)
 ```
 * Stream02.java 파일 참조
+***
 > 람다식
 #### 람다식을 매개변수로 받는 Stream 클래스의 iterate(), generate()
 * 무한 스트림을 생성한다.
@@ -156,6 +160,7 @@ generate()에 정의된 매개변수의 타입은 Supplier이므로 매개변수
 IntStream evenStream = Stream.iterator(0, n->n+2); // 에러
 DoubleStream randomStream = Stream.generate(Math::random); // 에러
 ``` 
+***
 > 파일
 #### 지정된 디렉토리에 있는 파일의 목록을 스트림으로 반환하는 list()
 ```java
@@ -169,12 +174,14 @@ Stream<String> Files.lines(Path path, Charset cs)
 Stream<String> lines() // BufferedReader 클래스의 메서드
 ```
 > 빈 스트림
+***
 #### 요소가 없는, 비어있는 스트림을 생성하는 empty()
 * 스트림에서 연산을 수행한 결과가 하나도 없을 때, null보다 빈 스트림을 반환하는 것을 권장한다.
 ```java
 Stream emptyStream = Stream.empty();
 long count = emptyStream.count(); // 0
 ```
+***
 > 두 스트림의 연결
 #### 두 스트림을 하나로 연결하는 concat()
 * 연결하려는 두 스트림의 요소는 같은 타입이여야한다.
@@ -186,6 +193,7 @@ Stream<String> strs1 = Stream.of(str1);
 Stream<String> strs2 = Stream.of(str2);
 Stream<String> strs3 = Stream.concat(strs1, strs2); // 두 스트림을 하나로 연결
 ```
+***
 ## 스트림의 중간연산
 > 스트림 자르기
 #### 스트림의 일부를 잘라내는 skip(), limit()
@@ -198,6 +206,7 @@ Stream<T> limit(long maxSize)
 IntStream intStream = IntStream.rangeClosed(1, 10); // 1~10의 요소를 가진 스트림
 intStream.skip(3).limit(5).forEach(System.out::println); // 45678 출력
 ```
+***
 > 스트림 요소 걸러내기
 #### 중복 요소를 제거하는 distinct(), 조건(Predicate)에 맞지않는 요소를 걸러내는 filter()
 ```java
@@ -220,6 +229,7 @@ intStream.filter(i -> i % 2 == 0).forEach(System.out::println); // 2 4 6 8 10
 intStream.filter(i -> i%2 != 0 && i%3 != 0).forEach(Systsem.out::println); //157
 intStream.filter(i -> i%2 != 0).filter(i -> i%3 != 0).forEach(Systsem.out::println); //157
 ```
+***
 > 정렬
 #### 스트림 요소를 정리하는 sorted()
 ```java
@@ -238,6 +248,7 @@ strStream.sorted().forEach(System.out::println); // CC aaa b cc dd
 ```
 * Stream03.java 파일 참조
 * Stream04.java 파일 참조
+***
 > 변환
 #### 원하는 필드만 뽑아내거나 특정형태로 변환시켜주는 map()
 * 매개변수로 T타입을 R타입으로 변환해서 반환하는 함수를 지정해야한다.
@@ -264,6 +275,67 @@ fileStream.map(File::getName) // Stream<File> -> Stream<String>
     .forEach(System.out::println);
 ```
 * Stream05.java 파일 참조
+***
 > mapToInt(), mapToLong(), mapToDouble()
+#### Stream\<T> 타입의 스트림을 기본형 스트림으로 변환할때 사용한다.
+* 스트림의 요소를 숙자로 변환하는 경우 IntStream과 같은 기본형 스트림으로 변환하는 것이 더 유용할 수 있다.
+```java
+DoubleStream mapToDouble(ToDoubleFunction<? super T> mapper)
+IntStream    mapToInt(ToIntFunction<? super T> mapper)
+LongStream   mapToLong(ToLongFunction<? super T> mapper)
+```
+* Stream04.java 파일 예제를 참고하자.
+    * studentStream에서 스트림에 포함된 모든 학생의 성적을 합산해야 한다면, map()을 사용하면 된다.
+```java
+Stream<Integer> studentScoreStream = studentStream.map(Student::getTotalScore);
+```
+* 이럴때는 애초에 mapToInt()를 사용해서 IntStream타입 스트림을 생성하는게 더 효율적이다.
+    * 연산을 할때, Integer를 int로 변환할 필요가 없기 때문이다.
+```java
+IntStream studentStream = studentStream.mapToInt(Student::getTotalScore);
+int allTotalScore = studentStream.sum();
+```
+#### 기본형 스트림은 숫자를 다루는데 편리한 메서드들을 제공한다.
+* Stream<T>는 count()만 지원한다.
 
+|스트림 유형|반환타입|메서드|설명|
+|------|---|------|---|
+|Stream\<T>|long|count()|스트림의 모든 요소의 총 개수|
+|IntStream|int|sum()|스트림의 모든 요소의 총합|
+|DoubleStream|OptionalDouble|average()|sum() / (double)count()|
+|IntStream|OptionalInt|max()|스트림 요소 중 제일 큰 값|
+|IntStream|OptionalInt|min()|스트림 요소 중 제일 작은 값|
+* Optional을 반환하는 이유?
+    * 스트림의 요소가 하나도 없을 때 sum()은 0을 반환하면 된다.
+    * 다른 메서드(average...)들은 여러 요소들을 합한 평균이 0일 수도 있기 때문에 단순히 0을 반환할 수 없다.
+    * 구분하기위해 OptionalDouble을 반환하는 것이다.
+        * 요소가 없을 경우 empty를 반환한다.
+
+* 위의 메서드들은 최종 연산이기 때문에 호출 후 스트림이 닫힌다는 점을 주의해야한다.
+    * 하나의 스트림에서 sum()과 average()를 연속하여 호출 할 수 없다.
+    * 모두 호출해야할때, 스트림을 또 생성하는 불편함이 있다.
+        * summaryStatistics()라는 메서드를 사용하자.
+```java
+IntSummaryStatistics stat = scoreStream.summaryStatistics();
+long totalCount = stat.getCount();
+long totalScore = stat.getSum();
+double avgScore = stat.getAverage();
+int minScore    = stat.getMin();
+int maxScore    = stat.getMax();
+```           
+#### 기본형 스트림을 Stream\<T>로 변환하는 메서드
+* IntStream을 Stream\<T>로 변환 : mapToObj()
+* IntStream을 Stream\<Integer>로 변환 : boxed()
+```java
+/* 로또 번호를 생성해서 출력하는 코드이다.
+   mapToObj()를 이용해서 IntStream을 Stream<String>으로 변환하였다. */
+IntStream intStream = new Random().ints(1,46); // 1-45사이의 정수(46은 포함되지 않음)
+Stream<String> lottoStream = intStream.distinct().limit(6).sorted()
+                                      .mapToObj(i -> i+","); // 정수를 문자열로 변환
+lottoStream.forEach(System.out::println);
+```
+참고!
+* Stream\<String>을 IntStream으로 변환 : mapToInt(Integer::parseInt);
+* Stream\<Integer>을 IntStream으로 변환 : mapToInt(Integer::intValue);
+***
 > flatMap()
