@@ -30,11 +30,11 @@ forEach(System.out::println) -> 최종연산
 > 병렬스트림
 #### 병렬 처리가 쉽다는게 스트림의 장점이다.
 * 내부적으로 fork&join 프레임웍을 이용해서 자동적으로 연산을 병렬로 수행한다.
-* paralle()를 호출하면 된다.
-* paralle() 호출을 취소하기 위해서는 sequential()을 사용한다.
+* parallel()를 호출하면 된다.
+* parallel() 호출을 취소하기 위해서는 sequential()을 사용한다.
 ```java
 int sum = strStream.parallel() // strStream을 병렬 스트림으로 전환
-                   .mapToInt(s -> s.lenght())
+                   .mapToInt(s -> s.length())
                    .sum();
 ```
 ***
