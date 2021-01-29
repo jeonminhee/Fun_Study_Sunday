@@ -339,3 +339,15 @@ lottoStream.forEach(System.out::println);
 * Stream\<Integer>을 IntStream으로 변환 : mapToInt(Integer::intValue);
 ***
 > flatMap()
+#### Stream\<T[]>를 Stream\<T>로 변환하는 메서드
+* 스트림의 요소가 배열이거나 map()의 연산결과가 배열인 경우, 즉 스트림의 타입이 Stream\<T[]>인 경우 flatMap()을 사용하여 Stream<T>로 변환한다. 
+```java
+String[] lineArr = {
+    "Belive or not It is true",
+    "Do or do not There is no try"
+};
+Stream<String> lineStream = Arrays.stream(lineArr);
+Stream<String> strStream = lineStream
+                           .flatMap(line->Stream.of(line.split(" +")));
+```
+* Stream06.java 파일 참조
