@@ -20,6 +20,7 @@ public class Stream03 {
         */
         // strStream.sorted(Comparator.reverseOrder()).forEach(System.out::println); // 기본정렬의 역순
         // strStream.sorted(Comparator.<String>naturalOrder().reversed()).forEach(System.out::println);
+        // strStream.sorted((s1, s2) -> s2.compareTo(s1)).forEach(System.out::println); // 람다식 역순
 
         /*
         결과 : aaabCCccdd
@@ -40,6 +41,6 @@ public class Stream03 {
         /*
         결과 : aaaddCCccb
         */
-        strStream.sorted(Comparator.comparing(String::length).reversed()).forEach(System.out::println);
+        // strStream.sorted(Comparator.comparing(String::length).reversed()).forEach(System.out::println);
     }
 }

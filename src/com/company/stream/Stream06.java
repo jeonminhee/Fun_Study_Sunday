@@ -1,5 +1,6 @@
 package com.company.stream;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
 import java.util.OptionalDouble;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 public class Stream06 {
     public static void main(String[] args) {
         IntStream charStream = "12345".chars();
+        charStream.forEach(System.out::println);
         charStream.mapToObj(ch -> ch-'0').forEach(System.out::println);
 
         /*

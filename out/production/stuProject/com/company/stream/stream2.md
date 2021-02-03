@@ -30,11 +30,11 @@ forEach(System.out::println) -> 최종연산
 > 병렬스트림
 #### 병렬 처리가 쉽다는게 스트림의 장점이다.
 * 내부적으로 fork&join 프레임웍을 이용해서 자동적으로 연산을 병렬로 수행한다.
-* paralle()를 호출하면 된다.
-* paralle() 호출을 취소하기 위해서는 sequential()을 사용한다.
+* parallel()를 호출하면 된다.
+* parallel() 호출을 취소하기 위해서는 sequential()을 사용한다.
 ```java
 int sum = strStream.parallel() // strStream을 병렬 스트림으로 전환
-                   .mapToInt(s -> s.lenght())
+                   .mapToInt(s -> s.length())
                    .sum();
 ```
 ***
@@ -278,7 +278,7 @@ fileStream.map(File::getName) // Stream<File> -> Stream<String>
 ***
 > mapToInt(), mapToLong(), mapToDouble()
 #### Stream\<T> 타입의 스트림을 기본형 스트림으로 변환할때 사용한다.
-* 스트림의 요소를 숙자로 변환하는 경우 IntStream과 같은 기본형 스트림으로 변환하는 것이 더 유용할 수 있다.
+* 스트림의 요소를 숫자로 변환하는 경우 IntStream과 같은 기본형 스트림으로 변환하는 것이 더 유용할 수 있다.
 ```java
 DoubleStream mapToDouble(ToDoubleFunction<? super T> mapper)
 IntStream    mapToInt(ToIntFunction<? super T> mapper)
@@ -296,7 +296,7 @@ IntStream studentStream = studentStream.mapToInt(Student::getTotalScore);
 int allTotalScore = studentStream.sum();
 ```
 #### 기본형 스트림은 숫자를 다루는데 편리한 메서드들을 제공한다.
-* Stream<T>는 count()만 지원한다.
+* Stream\<T>는 count()만 지원한다.
 
 |스트림 유형|반환타입|메서드|설명|
 |------|---|------|---|
