@@ -23,7 +23,7 @@ public class Stream01 {
         peek(Consumer<T> action)         : 스트림의 요소에 작업수행
         sorted()                         : 스트림의 요소를 정렬한다.
         sorted(Comparator<T> comparator) : 스트림의 요소를 정렬한다.
-        map(), flatMap()                 : 스트림의 요소를 변환한다,
+        map(), flatMap()                 : 스트림의 요소를 변환한다.
         ... 이외의 여러가지가 있다.
         */
 
