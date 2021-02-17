@@ -351,3 +351,62 @@ Stream<String> strStream = lineStream
                            .flatMap(line->Stream.of(line.split(" +")));
 ```
 * Stream06.java 파일 참조
+***
+## 스트림의 최종연산
+> forEach()
+#### peek()와 달리 스트림의 요소를 소모하는 최종연산
+```java
+void forEach(Cunsumer<? super T> action)
+// 반환타입이 void 이므로 스트림의 요소를 출력하는 용도로 많이 사용된다.
+```
+> 조건검사 - allMatch(), anyMatch(), noneMatch(), findFirst(), findAny()
+#### 요소에 대해 지정된 조건에 모든 요소가 일치하는지, 
+#### 일부만 일치하는지 혹은 어떤 요소도 일치하지 않는지 확인하는데 사용되는 메서드
+* 매개변수로 Predicate를 요구하며 연산결과로 boolean을 반환한다.
+```java
+boolean allMatch (Predicate<? super T> predicate)
+boolean anyMatch (Predicate<? super T> predicate)
+boolean noneMatch(Predicate<? super T> predicate)
+```
+* 학생 성적 정보 스트림 (stuStream)에서 총점이 낙제점(총점 100이하)인 학생이 있는지 확인하는 방법
+```java
+boolean noFailed = stuStream.anyMatch(s -> s.getTotalScore() <= 100)
+/* Predicate 함수형 인터페이스
+   매개값을 조사하여 true 혹은 false를 리턴한다. */
+```
+* 조건에 일치하는 첫번째 것을 반환하는 findFirst()
+    * 주로 filter()와 함께 사용한다.
+    * 병렬스트림인 경우에는 findAny()를 사용한다.
+
+```java
+Optional<Student> stu = stuStream.filter(s -> s.getTotalScore() <= 100).findFirst();
+Optional<Student> stu = parallelStream.filter(s -> s.getTotalScore() <= 100).findAny();
+/* findAny와 findFirst의 반환 타입은 Optional<T> */
+```
+> 통계 - count(), sum(), average(), max(), min()
+#### 기본형 스트림(IntStream)이 아닌 경우에는 통계와 관련된 메서드들이 3개뿐이다.
+```java
+long        count()
+Optional<T> max(Comparator<? super T> comparator)
+Optional<T> min(Comparator<? super T> comparator)
+/* 기본형 스트림의 min(), max()와 달리 매개변수로 Comparator를 필요로 한다. */
+```
+* 대부분의 경우 위의 메서드를 사용하기보다 기본형 스트림으로 변환하거나 reduce()와 collect()를 사용해서 통계 정보를 얻는다.
+> 리듀싱 - reduce()
+#### 스트림의 요소를 줄여나가면서 연산을 수행하고 최종결과를 반환한다.
+* 초기값이 없는 reduce()
+    * reduce()의 param으로 (total, n) -> total + n가 전달되고
+reduce는 a, b, c...의 stream을 a + b + c...로 연산을 수행한다. 첫번째로 total=a, n=ab가 되고, 두번째로 total=(a+b), n=c가 되는 형식이다.
+* Stream07.java 파일 참조
+--- 
+* 초기값이 있는 reduce()
+    * 동일하게 동작하지만 초기값을 지정할 수 있다.
+    * 첫번째 param으로 초기값을 넘겨주면 된다.
+* Stream08.java 파일 참조
+---
+* 병렬처리 + reduce()
+    * parallel()을 사용하면 병렬처리 연산이 가능해진다.
+    * 순차적으로 수행하지않고 여러개의 작업을 병렬로 처리한다.
+    * (a+b) + (c+d) + (e+f) + ... 
+* Stream09.java 파일 참조
+
