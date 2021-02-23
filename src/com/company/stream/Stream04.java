@@ -2,6 +2,7 @@ package com.company.stream;
 
 import java.util.Comparator;
 import java.util.IntSummaryStatistics;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -41,6 +42,15 @@ public class Stream04 {
                         .forEach(System.out::println);
 
         stuStream = Stream.of(stuArr); // 스트림을 다시 생성한다
+
+        Optional<Student> stu1 = stuStream.filter(s -> s.getTotalScore() <= 100).findFirst();
+        System.out.println("stu1 = " + stu1);
+
+        stuStream = Stream.of(stuArr);
+
+        Optional<Student> stu2 = stuStream.parallel().filter(s -> s.getTotalScore() <= 100).findAny();
+        System.out.println("stu2 = " + stu2);
+
         IntStream stuScoreStream = stuStream.mapToInt(Student::getTotalScore);
 
         IntSummaryStatistics stat = stuScoreStream.summaryStatistics();

@@ -7,7 +7,7 @@ public class Stream09 {
 
         /* reduce 예제 */
         Stream<Integer> numbers4 = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        Integer sum4 = numbers4.parallel().reduce(0, (total, n) -> total + n);
+        Integer sum4 = numbers4.parallel().reduce(0, (total, n) -> total + n); // ( 1 + 2 ) + ( 3 + 4 ) + ( 5 + 6 ) ...
         System.out.println("sum4: " + sum4);
 
     }
