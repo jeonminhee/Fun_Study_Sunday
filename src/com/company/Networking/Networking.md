@@ -25,6 +25,7 @@
 --- 
 ## IP 주소(IP address)
 #### 컴퓨터(호스트)를 구별하는데 사용되는 고유한 값
+> 특징
 * 모든 컴퓨터는 IP 주소를 갖는다.
 * 4 byte(32 bit)의 정수로 구성되어 있다.
 * a.b.c.d 의 형식으로 되어있으며 부호없는 1 byte값, 즉 0~255 사이의 정수이다.
@@ -33,11 +34,45 @@
     * 호스트 주소 : 특정한 한 네트워크 내에서 서로를 구분하기위한 주소
     * 203.240.100.1에서 203.240.100은 네트워크 주소, 1은 호스트 주소
     * 서로 다른 두 호스트의 IP 주소의 네트워크 주소가 같다는 것은 두 호스트가 같은 네트워크라는 것이다. 
+> 내 호스트 IP 확인하는 방법
 * 윈도우즈 OS에서 호스트의 IP 주소를 확인하는 방법 : 콘솔에서 'ipconfig' 
 * 맥 OS에서 호스트의 IP 주소를 확인하는 방법 : 콘솔에서 'ifconfig'
 
 --- 
 ## InetAddress
-#### IP 주소를 다루기위한 자바 클래스
+> IP를 다루기 위해 자바에서 제공하는 InetAddress 클래스
+* Network1.java 파일 참조
+--- 
+## URL(Uniform Resource Locator)
+#### 인터넷에 존재하는 여러 서버들이 제공하는 자원에 접근할 수 있는 주소
+> URL의 형태
+* 프로토콜 : // 호스트명 : 포트번호 / 경로명 / 파일명 ? 쿼리스트링 # 참조
+```
+http://www.codechobo.com:80/sample/hello.html?referer=codechobo#index1
 
+프로토콜      자원에 접근하기 위해 서버와 통신하는데 사용되는 통신규약(http)
+호스트명      자원을 제공하는 서버의 이름(www.codechobo.com)
+포트번호      통신에 사용되는 서버의 포트번호(80)
+경로명       접근하려는 자원이 저장된 서버상의 위치(/sample/)
+파일명       접근하려는 자원의 이름(hello.html)
+쿼리(query)  URL에서 '?'이후의 부분(referer=codechobo)
+참조(ancher) URL에서 '#'이후의 부분(index1)
 
+** HTTP 프로토콜에서는 80번 포트를 사용하기 때문에 URL에서 포트번호를 생략하는 경우 80으로 간주한다. 
+** 각 프로토콜에 따라 통신에 사용하는 포트번호가 다르며 생략되면 각 프로토콜의 기본 포트가 사용된다.
+```
+> URL을 다루기 위해 자바에서 제공하는 URL 클래스
+* URL과 URI의 차이
+    * URI : 네트워크 상에서 자원 위치를 알려주기 위한 규약.
+    * URL : 통합 자원 식별자로 인터넷에 있는 자원을 나타내는 유일한 주소.
+    * URI가 URL의 상위 개념이다.
+    * 관련 자료 : https://blog.lael.be/post/61
+* Networking2.java 파일 참조
+---
+## URLConnection
+#### 어플리케이션과 URL간의 통신연결을 나타내는 클래스의 최상위 클래스(추상클래스)
+* URLConnection을 상속받아 구현한 클래스
+    * HttpURLConnection
+    * JarURLConnection
+* Network3.java 파일 참조
+* Network4.java 파일 참조
