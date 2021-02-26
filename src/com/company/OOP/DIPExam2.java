@@ -9,7 +9,7 @@ class Car2 {
     }
 }
 
-class absTire1 {
+abstract class absTire1 {
     public String name;
 }
 
@@ -24,5 +24,4 @@ class Tire2 extends absTire1 {
 public class DIPExam2 {
     Car2 c1 = new Car2("자동차1", new Tire2());
     Car2 c2 = new Car2("자동차2", new SnowTire2());
-
 }
