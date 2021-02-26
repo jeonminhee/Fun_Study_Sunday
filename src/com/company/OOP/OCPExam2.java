@@ -12,7 +12,7 @@ class Circle2 implements Figure{
 
     @Override
     public double calculator() {
-        return radius * radius / 3.14;
+        return radius * radius * 3.14;
     }
 }
 
