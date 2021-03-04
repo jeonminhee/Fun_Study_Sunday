@@ -2,11 +2,11 @@ package com.company.OOP;
 
 /*
 * 첫번째 요구사항:
-* 1. 직사각형을 정의하고 직사각형의 둘레를 구할 수 있는 클래스를 만들기
+* 1. 직사각형을 정의하고 직사각형의 넓이를 구할 수 있는 클래스를 만들기
 * 2. 직사각형의 둘레가 20이 아니라면 예외를 던지기
 *
 * 두번째 요구사항:
-* 1. 정사각형을 정의하고 둘레를 구할 수 있는 클래스를 만들기
+* 1. 정사각형을 정의하고 넓이를 구할 수 있는 클래스를 만들기
 * */
 
 // 직사각형을 정의하고 직사각형의 넓이를 구하는 클래스
@@ -52,8 +52,8 @@ public class LiskovExam1 {
     }
 
     public static void main(String[] args) {
-//        Rectangle3 rectangle = new Square1();
-        Rectangle3 rectangle = new Rectangle3();
+        Rectangle3 rectangle = new Square1();
+//        Rectangle3 rectangle = new Rectangle3();
         rectangle.setHeight(5);
         rectangle.setWidth(4);
 
