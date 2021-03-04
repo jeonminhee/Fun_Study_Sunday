@@ -1,0 +1,39 @@
+package com.company.Networking.Socket;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.ConnectException;
+import java.net.Socket;
+
+public class TcpIpClient {
+    public static void main(String[] args) {
+        try {
+            String serverIp = "127.0.0.1";
+
+            System.out.println("서버에 연결중입니다. 서버IP : " + serverIp);
+            // 소켓을 생성하여 연결을 요청한다.
+            Socket socket = new Socket(serverIp, 7777);
+
+            // 소켓의 입력스트림을 얻는다.
+            InputStream in = socket.getInputStream();
+            DataInputStream dis = new DataInputStream(in);
+
+            // 소켓으로부터 받은 데이터를 출력한다.
+            System.out.println("서버로부터 받은 메세지 : " + dis.readUTF());
+            System.out.println("연결을 종료합니다.");
+
+            // 소켓과 스트림을 닫는다.
+            dis.close();
+            socket.close();
+            System.out.println("연결이 종료되었습니다.");
+        } catch (ConnectException e) {
+            // 서버가 실행되고 있지않거나 서버의 전원이 꺼져있어서 서버와 연결이 실패한다면 ConnectException이 발생
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    } // main
+} // class
