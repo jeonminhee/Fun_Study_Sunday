@@ -1,4 +1,4 @@
-package com.company.Networking;
+package com.company.Networking.Network;
 
 import java.net.URL;
 
@@ -9,7 +9,7 @@ public class Network2 {
         URL url = new URL("https://www.eff.org/pages/blue-ribbon-campaign#intro");
 
         System.out.println("url.getAuthority() = " + url.getAuthority()); // 호스트명과 포트
-        // System.out.println("url.getContent() = " + url.getContent()); // URL과 Content 객체
+        System.out.println("url.getContent() = " + url.getContent()); // URL과 Content 객체
         // 결과 형식 : sun.net.www.protocol.http.HttpURLConnection$HttpInputStream@3941a79c
         System.out.println("url.getDefaultPort() = " + url.getDefaultPort()); // URL의 기본포트 (http는 80)
         System.out.println("url.getPort() = " + url.getPort()); // 포트를 반환, 포트번호가 명시되지않았을때 -1

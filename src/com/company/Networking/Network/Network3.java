@@ -1,4 +1,4 @@
-package com.company.Networking;
+package com.company.Networking.Network;
 
 import java.net.URL;
 import java.net.URLConnection;
