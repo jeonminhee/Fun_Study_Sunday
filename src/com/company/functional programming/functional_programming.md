@@ -33,6 +33,22 @@
       - 고차 함수가 아닌 함수는 일차 함수라고 함
 
       ```
+      // 클로저
+
+      const i = 10;
+      const a = () => {
+         i = 20;
+         function b () {
+            console.log(i)
+         }
+      }
+
+      console.log(i); // i = 10;
+
+      a.b(); // i = 20;
+      ```
+
+      ```
       // 고차 함수
       function makeCounter(func) {
           var count = 0;
@@ -68,7 +84,7 @@
       -----
 
       const c = 10
-      function add(a, b, c) {
+      function add(a, b) {
          return a + b + c;
       }
 
@@ -77,7 +93,7 @@
       -----
 
       const c = 10
-      function add(a, b, c) {
+      function add(a, b) {
          c = b; //외부 상태에 영향을 끼침(=부수효과)
          return a + b;
       }
