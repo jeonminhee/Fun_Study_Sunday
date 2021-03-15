@@ -1,51 +1,37 @@
-package com.company.Networking.Socket;
+package com.company.Networking.Socket.Tcp;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TcpIpServer4 implements Runnable {
-    ServerSocket serverSocket;
-    Thread[] threadArr;
-
+public class TcpIpServer3 {
     public static void main(String[] args) {
-        // 5개의 쓰레드를 생성하는 서버를 생성한다.
-        TcpIpServer4 server = new TcpIpServer4(5);
-        server.start();
-    } // main
+        ServerSocket serverSocket = null;
 
-    public TcpIpServer4(int num) {
         try {
-            // 서버소켓을 생성하여 7777번 포트와 결합시킨다.
-            serverSocket = new ServerSocket(7777);
+            serverSocket = new ServerSocket(7777); // 서버 소켓을 생성하여 7777번 포트와 결합(bind)
             System.out.println(getTime() + "서버가 준비되었습니다.");
-
-            threadArr = new Thread[num];
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    public void start() {
-        for(int i=0; i < threadArr.length; i++){
-            threadArr[i] = new Thread(this);
-            threadArr[i].start();
-        }
-    }
-
-    public void run() {
-        while(true) {
+        while (true) {
             try {
-                System.out.println(Thread.currentThread().getName() + "가 연결요청을 기다립니다.");
+                // 서버소켓
+                System.out.println(getTime() + "연결요청을 기다립니다.");
 
+                // 요청대기시간을 5초로 설정한다.
+                // 5초동안 접속요청이 없으면 SocketTimeoutException이 발생한다.
+                serverSocket.setSoTimeout(5 * 1000);
                 Socket socket = serverSocket.accept();
                 System.out.println(getTime() + socket.getInetAddress() + "로부터 연결요청이 들어왔습니다.");
 
-                // 소켓의 출력스트립을 얻는다.
+                // 소켓의 출력스트림을 얻는다.
                 OutputStream out = socket.getOutputStream();
                 DataOutputStream dos = new DataOutputStream(out);
 
@@ -56,11 +42,14 @@ public class TcpIpServer4 implements Runnable {
                 // 소켓과 스트림을 닫아준다.
                 dos.close();
                 socket.close();
+            } catch (SocketTimeoutException e) {
+                System.out.println("지정된 시간동안 접속요청이 없어서 서버를 종료합니다.");
+                System.exit(0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } // while
-    } // run
+        }
+    } // main
 
     // 현재시간을 문자열로 반환하는 함수
     static String getTime() {

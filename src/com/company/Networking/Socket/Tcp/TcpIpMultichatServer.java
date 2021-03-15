@@ -1,4 +1,4 @@
-package com.company.Networking.Socket;
+package com.company.Networking.Socket.Tcp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -53,7 +53,9 @@ public class TcpIpMultichatServer {
     } // sendToAll
 
     public static void main(String[] args) {
+
         new TcpIpMultichatServer().start();
+
     }
 
     class ServerReceiver extends Thread {

@@ -1,4 +1,4 @@
-package com.company.Networking.Socket;
+package com.company.Networking.Socket.Tcp;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
