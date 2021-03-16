@@ -44,6 +44,8 @@ FROM 테이블이름
             - 범위: BETWEEN
             - 집합: IN, NOT IN
             - 패턴: LIKE
+                - "-": 한 글자와 대치(ex. "A-B": "A1B", "A2B"...가능 / "A123B" 불가능)
+                - "%": 0개 이상의 글자와 대치(ex. "A%B": "A1B", "A123B"...가능)
             - NULL: IS NULL, IS NOT NULL
             - 복합 조건: AND, OR, NOT
 
@@ -69,3 +71,32 @@ FROM 테이블이름
         - 보통 select문을 실행할 때에는 테이블에 입력된 순서대로 출력되지만, 내림차순이나 오름차순으로 정렬된 데이터가 필요할 때 쓰이는 구문
         - 정렬하고자 하는 속성이름에 맞춰 오름차순, 또는 내림차순으로 정렬
         - ASC는 오름차순, DESC는 내림차순 (기본은 ASC)
+
+    6. DISTINCT & ALL
+        - ALL 
+            - 모든 데이터를 가져올 수 있음 
+            - ALL은 생략 가능함
+            - ex. select all kor from student; //모든 국어 점수가 보여짐
+        - DISTINCT 
+            - 조회하려는 칼럼의 중복값을 제거
+            - ex. select distinct kor from student //모든 국어 점수들 중 중복되는 점수는 하나로 보여짐
+
+    7. concat & as
+        - concat 
+            - 여러 문자열을 하나로 합치는 명령어
+        - as
+            - 출력 라벨명을 지정하는 명령어
+            - 라벨명을 지정하지 않으면 컬럼명이 라벨명이 됨
+            - ex. select sum(kor, eng) as koreng from student;
+            - 공백을 넣고 싶으면 ''를 이용
+            - ex. select sum(kor, eng) as 'kor eng' from student;
+    
+    8. UNION
+        - union
+            - select 결과를 합치는 명령어
+            - 중복 값을 자동으로 제거해줌
+            - ex. select kor from student union select eng from student;
+        - union all
+            - select 결과를 합치는 명령어
+            - 중복 값을 제거하지 않음
+            - ex. select kor from student union all select eng from student;
