@@ -27,6 +27,9 @@ public class UdpServer {
             InetAddress address = inPacket.getAddress();
             int port = inPacket.getPort();
 
+            String msg = new String(inMsg, 0, inPacket.getLength());
+            System.out.println("전송받은 메세지는 : " + msg  + " 입니다.");
+
             // 서버의 현재 시간을 시분초 형태로([hh:mm:ss])로 반환한다.
             SimpleDateFormat sdf = new SimpleDateFormat("[hh:mm:ss]");
             String time = sdf.format(new Date());

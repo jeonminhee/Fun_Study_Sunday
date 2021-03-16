@@ -65,6 +65,7 @@ class Box<T> {
         return tempArr;
     }
 }
+// 배열의 경우 Object가 String의 부모이므로 Object[]도 String[]의 부모이다. 하지만 제너릭에선 ArrayList<Object>와 ArrayList<String>은 아예 다른 객체이다. 그래서 전자를 가리키는 레퍼런스 변수가 후자의 객체를 참조하지 못한다.
 ```
 ---
 ## 지네릭 클래스의 객체 생성과 사용

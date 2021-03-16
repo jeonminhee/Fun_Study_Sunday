@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 public class UdpClient {
     public void start() throws IOException, UnknownHostException {
@@ -13,8 +14,10 @@ public class UdpClient {
 
         // 데이터가 저장될 공간으로 byte배열을 생성한다.
         byte[] msg = new byte[100];
+        // DatagramPacket outPacket = new DatagramPacket(msg, 1, serverAddress, 7777);
 
-        DatagramPacket outPacket = new DatagramPacket(msg, 1, serverAddress, 7777);
+        String str = "Hello!";
+        DatagramPacket outPacket = new DatagramPacket(str.getBytes(), str.getBytes().length, serverAddress, 7777);
         DatagramPacket inPacket = new DatagramPacket(msg, msg.length);
 
         datagramSocket.send(outPacket); // DatagramPacket을 전송한다.

@@ -16,13 +16,13 @@ class FruitBoxEx1 {
 
         fruitBox.add(new Fruit());
         fruitBox.add(new Apple()); // Ok. void add(Fruit item), Fruit의 자손들은 메서드의 매개변수가 될 수 있다.
+        fruitBox.add(new Grape()); // Ok. void add(Fruit item), Fruit의 자손들은 메서드의 매개변수가 될 수 있다.
 
-        appleBox.add(new Apple());
         appleBox.add(new Apple());
         // appleBox.add(new Toy()); // 에러, Box<Apple>에는 Apple만 담을 수 있음.
 
         toyBox.add(new Toy());
-        // toyBox.add(new Apple()); // 에러, Box<Toy>에는 Apple을 담을 수 없음
+        // toyBox.add(new Apple()); // 에러, Box<Toy>에는 Toy만 담을 수 있음.
 
         System.out.println(fruitBox);
         System.out.println(appleBox);

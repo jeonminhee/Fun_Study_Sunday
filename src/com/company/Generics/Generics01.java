@@ -4,7 +4,7 @@ public class Generics01 {
     public static void main(String[] args) {
         Box01<String> b1 = new Box01<String>();
 
-        // b.setItem(new Object()); // 에러, String 이외의 타입은 지정 불가
+        // b1.setItem(new Object()); // 에러, String 이외의 타입은 지정 불가
         b1.setItem("ABC"); // Ok, String 타입이므로 가능
 
         String item_1 = (String) b1.getItem();
