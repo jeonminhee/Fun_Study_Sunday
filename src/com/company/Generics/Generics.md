@@ -73,3 +73,104 @@ class Box<T> {
 ---
 ## 제한된 지네릭 클래스
 * FruitBoxEx2.java 파일 참조
+---
+## 와일드 카드
+* FruitBoxEx3_0.java 파일 참조
+* FruitBoxEx3_1.java 파일 참조
+
+> 와일드 카드란?
+```java
+<? extends T>  와일드 카드의 상한 제한. T와 그 자손들만 가능
+<? super T>    와일드 카드의 하한 제한. T와 그 조상들만 가능
+<?>            제한 없음. 모든 타입이 가능하다. <? extends Object>와 동일
+```
+> extends로 와일드 카드의 상한을 제한하는 경우
+* FruitBoxEx3_2.java 파일 참조
+* FruitBoxEx3.java 파일 참조
+
+> super로 와일드 카드의 하한을 제한하는 경우
+* FruitBoxEx4.java 파일 참조
+--- 
+## 지네릭 메서드
+> 메서드의 선언부에 지네릭 타입이 선언된 메서드
+```java
+static <T> void sort(List<T> list, Comparator<? super T> c)
+```
+* 지네릭 클래스에 정의된 타입 매개변수와 지네릭 메서드의 정의된 타입 매개변수는 별개의 것
+    * 같은문자 T를 사용해도 같은 것이 아니라는 것에 주의!
+```java
+class FruitBox<T> {
+    ...
+    static <T> void sort(List<T> list, Comparator<? super T> c) {
+        ...
+    }
+}
+```
+* static을 사용할 수 있는 이유?
+    * 메서드 내에서만 지역적으로 사용될 것이므로 메서드가 static이건 아니건 상관이 없다!
+```java
+static Juice makeJuice(FruitBox<? extends Fruit> box) {
+    String tmp = "";
+    for(Fruit f : box.getList()) tmp += f + " ";
+    return new Juice(tmp);
+}
+```
+위의 makeJuice() 메서드를 지네릭 메서드로 변경하면?
+```java
+static <T extends Fruit> Juice makeJuice(FruitBox<T> box) {
+    String tmp = "";
+    for(Fruit f : box.getList()) tmp += f + " ";
+    return new Juice(tmp);
+}
+```
+이 메서드를 호출할때는 아래와 같이 타입 변수에 타입을 대입해야한다.
+```java
+FruitBox<Fruit> fruitBox = new FruitBox<Fruit>();
+FruitBox<Apple> appleBox = new FruitBox<Apple>();
+. . .
+System.out.println(Juicer.<Fruit>makeJuice(fruitBox));
+System.out.println(Juicer.<Apple>makeJuice(appleBox));
+```
+그러나 대부분의 경우, 컴파일러가 타입을 추정할 수 있기 때문에 생략해도 된다.
+fruitBox, appleBox의 선언부를 통해 대입된 타입을 컴파일러가 추정할 수 있다.
+```java
+System.out.println(Juicer.makeJuice(fruitBox));
+System.out.println(Juicer.makeJuice(appleBox));
+```
+---
+## 지네릭 타입의 형변환
+* TypeCasting1.java 파일 참조
+* TypeCasting2.java 파일 참조
+---
+## 지네릭 타입의 제거
+> 지네릭 타입의 제거 과정
+1. 지네릭 타입의 경계(bound)를 제거한다.
+    - \<T extends Fruit> 라면, <T>는 Fruit로 치환된다.
+    - \<T>인 경우는 Object로 치환된다.
+```java
+class Box<T extends Fruit> {
+    void add (T t) {
+        ...
+    }
+}
+```
+```java
+class Box {
+    void add(Fruit t) {
+        ...
+    }
+}
+```
+
+2. 지네릭 타입을 제거한 후에 타입이 일치하지 않으면 형변환을 추가한다.
+    - List의 get()은 Object 타입을 반환하므로 형변환이 필요하다.
+```java
+T get(int i) {
+    return list.get(i);
+}
+```
+```java
+Fruit get(int i) {
+    return (Fruit)list.get(i);
+}
+```
